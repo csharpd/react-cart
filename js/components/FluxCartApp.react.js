@@ -3,6 +3,7 @@ var CartStore = require('../stores/CartStore');
 var ProductStore = require('../stores/ProductStore');
 var FluxProduct = require('./FluxProduct.react.js');
 var FluxCart = require('./FluxCart.react.js');
+var QubitReact = require('qubit-react/wrapper'); 
 
 // Method to retrieve state from Stores
 function getCartState() {
@@ -40,10 +41,16 @@ var FluxCartApp = React.createClass({
   render: function () {
     return (
       <div className="flux-cart-app">
-        <FluxCart products={this.state.cartItems} count={this.state.cartCount} total={this.state.cartTotal}
+        <QubitReact id='cart-wrapper' products={this.state.cartItems} count={this.state.cartCount} total={this.state.cartTotal}
+                  visible={this.state.cartVisible}>
+          <FluxCart products={this.state.cartItems} count={this.state.cartCount} total={this.state.cartTotal}
                   visible={this.state.cartVisible}/>
-        <FluxProduct product={this.state.product} cartitems={this.state.cartItems}
+        </QubitReact>
+        <QubitReact id='product-wrapper' product={this.state.product} cartitems={this.state.cartItems}
+                     selected={this.state.selectedProduct}>
+          <FluxProduct product={this.state.product} cartitems={this.state.cartItems}
                      selected={this.state.selectedProduct}/>
+        </QubitReact>
       </div>
     );
   },
